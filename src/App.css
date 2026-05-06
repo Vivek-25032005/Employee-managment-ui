@@ -1,0 +1,8 @@
+body {
+  background-image: url('./images//backgroundimage.jpg');
+  background-size: cover;
+  background-position: center;
+  color: aliceblue;
+  height: 100vh;
+  
+}
