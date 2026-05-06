@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const EMPLOYEE_S_API_BASE_URL ="employee-managment-api-production.up.railway.app"
+const EMPLOYEE_S_API_BASE_URL ="employee-managment-api-production.up.railway.app/employees"
 class EmployeeService{
   saveEmployee(employee){
     return axios.post( EMPLOYEE_S_API_BASE_URL , employee)
