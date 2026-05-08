@@ -3,7 +3,7 @@ import { useState } from 'react'
 import './App.css'
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Navbar from './components/Navbar';
-import EmpolyList from './components/EmpolyList';
+import EmployeeList from './components/EmpolyList';
 import AddEmployee from './components/AddEmployee';
 import UpdateEmployee from './components/UpdateEmployee';
 function App() {
@@ -17,7 +17,7 @@ function App() {
    <Routes>
 
       
-      <Route path ="/" element={<EmpolyList/>}/>
+      <Route path ="/" element={<EmployeeList/>}/>
       <Route path ="/AddEmployee" element={<AddEmployee/>}/>
 
       <Route path = "/editemployee/:id" element = { <UpdateEmployee/>} />
