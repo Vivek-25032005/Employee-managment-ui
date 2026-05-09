@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const EMPLOYEE_S_API_BASE_URL ="https://employee-managment-api-production.up.railway.app/employees"
-const AUTH_API_BASE_URL ="https://employee-managment-api-production.up.railway.app/auth"
+const AUTH_API_BASE_URL ="https://employee-managment-api-production.up.railway.app/users"
 
 class EmployeeService{
   saveEmployee(employee){
