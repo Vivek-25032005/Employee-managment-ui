@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../images/backgroundimage.jpg';
+import EmployeeService from '../services/EmployeeService';
 
 const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
+        setLoading(true);
         
-        // Asli project mein yahan Backend API call hogi (Axios use karke)
-        console.log("User Registered:", { name, email, password });
-        
-        alert("Registration Successful! Ab login karein.");
-        navigate("/login"); 
+        try {
+            const response = await EmployeeService.register({ name, email, password });
+            
+            alert("Registration Successful! Ab login karein.");
+            navigate("/login"); 
+        } catch (error) {
+            console.error("Registration error:", error);
+            alert("Registration failed: " + (error.response?.data?.message || "Please try again"));
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -57,8 +66,12 @@ const Register = () => {
                     required
                 />
                 
-                <button type="submit" className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 transition duration-200">
-                    Create Account
+                <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 transition duration-200 disabled:opacity-50"
+                >
+                    {loading ? "Creating Account..." : "Create Account"}
                 </button>
 
                 <p className="mt-4 text-center text-sm text-gray-600">

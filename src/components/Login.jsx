@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../images/backgroundimage.jpg';
+import EmployeeService from '../services/EmployeeService';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
         
-        if(email === "admin@test.com" && password === "123456") {
-            localStorage.setItem("userToken", "abc-123");
-            alert("Login Successful!");
-            navigate("/");
-        } else {
-            alert("Galat details!");
+        try {
+            const response = await EmployeeService.login({ email, password });
+            
+            if (response.data.token) {
+                localStorage.setItem("userToken", response.data.token);
+                alert("Login Successful!");
+                navigate("/");
+            } else {
+                alert("Login failed: Invalid response from server");
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Login failed: " + (error.response?.data?.message || "Please check your credentials"));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -49,8 +61,12 @@ const Login = () => {
                     required
                 />
                 
-                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200">
-                    Login
+                <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200 disabled:opacity-50"
+                >
+                    {loading ? "Logging in..." : "Login"}
                 </button>
 
                 <p className="mt-4 text-center text-sm text-gray-600">
