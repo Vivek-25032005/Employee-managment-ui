@@ -15,12 +15,21 @@ const Login = () => {
         
         try {
             const response = await EmployeeService.login({ email, password });
+            console.log("Login response:", response.data);
             
-            if (response.data.token) {
-                localStorage.setItem("userToken", response.data.token);
+            // Handle different possible token field names from backend
+            const token = response.data?.token || 
+                         response.data?.jwtToken || 
+                         response.data?.accessToken || 
+                         response.data?.id ||
+                         response.data;
+            
+            if (token) {
+                localStorage.setItem("userToken", JSON.stringify(token));
                 alert("Login Successful!");
                 navigate("/");
             } else {
+                console.error("No token found in response:", response.data);
                 alert("Login failed: Invalid response from server");
             }
         } catch (error) {
