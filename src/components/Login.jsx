@@ -26,6 +26,7 @@ const Login = () => {
             
             if (token) {
                 localStorage.setItem("userToken", JSON.stringify(token));
+                localStorage.setItem("userEmail", email);
                 alert("Login Successful!");
                 navigate("/");
             } else {

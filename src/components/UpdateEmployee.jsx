@@ -68,9 +68,9 @@ const UpdateEmployee = () => {
         <input 
          type ='email'
          name='email'
-         value = {employee.email}
-         onChange={(e) => handleChange(e)}
-        className=" w-full py-2 my-2 text-slate-800 text-sm sm:text-base" placeholder='Email'></input>
+         value={employee.email}
+         disabled
+        className=" w-full py-2 my-2 bg-slate-200 text-slate-800 text-sm sm:text-base" placeholder='Email'></input>
 
         </div>
 

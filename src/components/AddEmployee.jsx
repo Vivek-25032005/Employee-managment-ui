@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import EmployeeService from '../services/EmployeeService'
 
 const addEmployee = () => {
+  const loggedInEmail = localStorage.getItem("userEmail") || "";
   const [employee , setEmployee] = useState({
     id:"",
     name:"",
     phone:"",
-    email:"",
+    email: loggedInEmail,
   });
 
   const handleChange = (e) =>{
@@ -33,7 +34,7 @@ const addEmployee = () => {
       id:"",
       name:"",
       phone:"",
-      email:"",
+      email: loggedInEmail,
     });
   }
   const navigate =useNavigate();
@@ -50,7 +51,10 @@ const addEmployee = () => {
         name ='name'
         value ={employee.name}
         onChange={(e) => handleChange(e)}
-         className=" w-full py-2 my-2 text-slate-800 text-sm sm:text-base" placeholder='Name'></input>
+         className=" w-full py-2 my-2 text-slate-800 text-sm sm:text-base" placeholder='Name'>
+
+         </input>
+
         <input 
         type='number'
         name ='phone'
@@ -60,9 +64,9 @@ const addEmployee = () => {
         <input 
          type ='email'
          name='email'
-         value = {employee.email}
-         onChange={(e) => handleChange(e)}
-        className=" w-full py-2 my-2 text-slate-800 text-sm sm:text-base" placeholder='Email'></input>
+         value={employee.email}
+         disabled
+        className=" w-full py-2 my-2 bg-slate-200 text-slate-800 text-sm sm:text-base" placeholder='Email'></input>
 
         </div>
 
